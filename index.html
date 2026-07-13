@@ -6,16 +6,16 @@
 <title>Tom Wilson — AI Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Instrument+Serif:ital@0;1&family=Karla:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #E3E4DA;
-    --paper-raised: #F0F0E7;
-    --ink: #1C221F;
-    --ink-soft: #56605A;
-    --rule: #C2C4B4;
-    --pen: #2F4B8F;
-    --stamp: #A8492F;
+    --bg: #FCFCFA;
+    --panel: #F4F4F0;
+    --ink: #16191C;
+    --ink-mid: #4A5158;
+    --ink-soft: #767C82;
+    --line: #E0E0DA;
+    --accent: #1F3A5F;
   }
 
   * { box-sizing: border-box; }
@@ -23,267 +23,275 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    *, *::before, *::after { animation: none !important; transition: none !important; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
   }
 
   body {
     margin: 0;
-    background: var(--paper);
-    background-image:
-      linear-gradient(to right, rgba(168,73,47,0.18) 0 1px, transparent 1px 100%);
-    background-size: 100% 100%;
-    background-position: 0 0;
+    background: var(--bg);
     color: var(--ink);
-    font-family: 'Karla', system-ui, sans-serif;
-    font-size: 17px;
-    line-height: 1.7;
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* the notebook margin rule, drawn down the page */
-  .sheet {
-    max-width: 860px;
+  .wrap {
+    max-width: 720px;
     margin: 0 auto;
-    background: var(--paper);
-    border-left: 1px solid var(--rule);
-    border-right: 1px solid var(--rule);
-    position: relative;
-    padding: 0 40px 0 84px;
+    padding: 0 28px;
   }
 
-  .sheet::before {
-    content: "";
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 62px;
-    width: 1px;
-    background: rgba(168, 73, 47, 0.35);
+  /* ---------- masthead ---------- */
+  header.masthead {
+    border-bottom: 1px solid var(--line);
+    padding: 72px 0 40px;
+    display: grid;
+    grid-template-columns: 116px 1fr;
+    gap: 30px;
+    align-items: start;
   }
 
-  @media (max-width: 640px) {
-    .sheet { padding: 0 22px 0 22px; }
-    .sheet::before { display: none; }
+  .portrait {
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    display: block;
   }
 
-  .mono { font-family: 'Space Mono', monospace; }
-
-  /* margin annotations, handwritten */
-  .note {
-    font-family: 'Caveat', cursive;
-    font-size: 19px;
-    line-height: 1.35;
-    color: var(--pen);
-    position: absolute;
-    left: -68px;
-    width: 130px;
-    text-align: right;
-    transform: rotate(-2.5deg);
+  @media (max-width: 560px) {
+    header.masthead { grid-template-columns: 1fr; gap: 24px; }
   }
 
-  @media (max-width: 900px) {
-    .note {
-      position: static;
-      width: auto;
-      text-align: left;
-      transform: rotate(-0.6deg);
-      margin: 0 0 14px;
-      display: block;
-    }
-  }
-
-  /* ---------- header ---------- */
-  header.cover {
-    padding: 64px 0 34px;
-    border-bottom: 2px solid var(--ink);
-  }
-
-  .filed {
-    font-family: 'Space Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.16em;
+  .kicker {
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
 
   h1 {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(44px, 8vw, 72px);
-    line-height: 1;
-    letter-spacing: -0.015em;
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 42px);
+    letter-spacing: -0.022em;
+    line-height: 1.1;
     margin: 0 0 14px;
   }
 
-  h1 em { font-style: italic; color: var(--stamp); }
-
   .standfirst {
-    font-size: 18px;
-    color: var(--ink-soft);
-    max-width: 46ch;
+    font-size: 19px;
+    color: var(--ink-mid);
     margin: 0;
   }
 
   .contact {
-    margin-top: 26px;
+    margin-top: 24px;
     display: flex;
-    gap: 20px;
+    gap: 24px;
     flex-wrap: wrap;
-    font-family: 'Space Mono', monospace;
-    font-size: 12.5px;
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
   }
 
   .contact a {
-    color: var(--pen);
+    color: var(--accent);
     text-decoration: none;
-    border-bottom: 1px solid rgba(47, 75, 143, 0.35);
-    padding-bottom: 1px;
+    border-bottom: 1px solid rgba(31, 58, 95, 0.3);
+    padding-bottom: 2px;
   }
-  .contact a:hover, .contact a:focus-visible { border-bottom-color: var(--pen); }
+  .contact a:hover, .contact a:focus-visible { border-bottom-color: var(--accent); }
 
   /* ---------- sections ---------- */
   section {
-    padding: 46px 0;
-    border-bottom: 1px solid var(--rule);
-    position: relative;
+    padding: 52px 0;
+    border-bottom: 1px solid var(--line);
   }
   section:last-of-type { border-bottom: none; }
 
   h2 {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-weight: 400;
-    font-size: 30px;
-    margin: 0 0 20px;
-    letter-spacing: -0.01em;
-  }
-
-  p { margin: 0 0 18px; }
-  p:last-child { margin-bottom: 0; }
-
-  /* ---------- value proposition, as a stamped block ---------- */
-  .prop {
-    background: var(--paper-raised);
-    border: 1px solid var(--rule);
-    padding: 28px 30px;
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-size: 21px;
-    line-height: 1.55;
-    position: relative;
-  }
-
-  .prop::after {
-    content: "IN PROGRESS";
-    position: absolute;
-    right: 18px;
-    bottom: 14px;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    color: var(--stamp);
-    border: 1.5px solid var(--stamp);
-    padding: 3px 8px;
-    border-radius: 2px;
-    transform: rotate(-4deg);
-    opacity: 0.75;
-  }
-
-  /* ---------- artifact ---------- */
-  .artifact {
-    border: 1px solid var(--ink);
-    background: var(--paper-raised);
-    padding: 0;
-  }
-
-  .artifact-head {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 14px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 16px;
-    flex-wrap: wrap;
-    font-family: 'Space Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .artifact-body { padding: 26px 26px 30px; }
-
-  .artifact-body h3 {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-weight: 400;
-    font-size: 32px;
-    margin: 0 0 6px;
-    letter-spacing: -0.01em;
-  }
-
-  .artifact-tag {
-    font-family: 'Space Mono', monospace;
+    font-family: 'Libre Franklin', system-ui, sans-serif;
     font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     color: var(--ink-soft);
     margin: 0 0 24px;
   }
 
-  .row {
-    display: grid;
-    grid-template-columns: 132px 1fr;
-    gap: 6px 22px;
-    padding: 18px 0;
-    border-top: 1px solid var(--rule);
+  p { margin: 0 0 20px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ---------- value proposition ---------- */
+  .prop {
+    border-left: 2px solid var(--accent);
+    padding: 4px 0 4px 26px;
+    font-size: 21px;
+    line-height: 1.6;
   }
 
-  .row-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--stamp);
+  /* ---------- audience ---------- */
+  .audience {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+  }
+
+  .audience li {
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4px 24px;
+  }
+
+  .audience li:last-child { border-bottom: 1px solid var(--line); }
+
+  .audience strong {
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
     padding-top: 5px;
   }
 
-  .row-body p { font-size: 16.5px; }
+  .audience span { font-size: 17px; color: var(--ink-mid); }
 
-  @media (max-width: 600px) {
-    .row { grid-template-columns: 1fr; gap: 2px; }
+  @media (max-width: 640px) {
+    .audience li { grid-template-columns: 1fr; }
+    .audience strong { padding-top: 0; }
+  }
+
+  /* ---------- artifact ---------- */
+  .artifact {
+    border: 1px solid var(--line);
+  }
+
+  .artifact-head {
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+    padding: 16px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .artifact-body { padding: 30px 26px 32px; }
+
+  .artifact-body h3 {
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: -0.015em;
+    margin: 0 0 6px;
+  }
+
+  .artifact-tag {
+    font-size: 18px;
+    color: var(--ink-mid);
+    margin: 0 0 28px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 128px 1fr;
+    gap: 4px 28px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .row-label {
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-top: 8px;
+  }
+
+  .row-body p { font-size: 17px; }
+
+  @media (max-width: 640px) {
+    .row { grid-template-columns: 1fr; gap: 6px; }
+    .row-label { padding-top: 0; }
   }
 
   /* ---------- evidence ---------- */
   .evidence {
-    margin-top: 26px;
-    padding: 18px 20px;
-    border: 1px dashed var(--pen);
-    background: rgba(47, 75, 143, 0.05);
+    margin-top: 30px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
   }
 
-  .evidence > .mono {
+  .evidence h4 {
+    font-family: 'Libre Franklin', system-ui, sans-serif;
     font-size: 11px;
+    font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--pen);
+    color: var(--ink-soft);
+    margin: 0 0 14px;
   }
 
-  .evidence p { font-size: 15px; color: var(--ink-soft); margin: 8px 0 0; }
+  .evidence > p { font-size: 17px; margin-bottom: 20px; }
+
+  .dl {
+    display: inline-block;
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: var(--accent);
+    padding: 11px 20px;
+    text-decoration: none;
+  }
+  .dl:hover, .dl:focus-visible { background: var(--ink); }
 
   .shots {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px;
-    margin-top: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
+    margin-top: 26px;
   }
+
+  .shots figure { margin: 0; }
 
   .shots img {
     width: 100%;
     display: block;
-    border: 1px solid var(--rule);
+    border: 1px solid var(--line);
     background: #fff;
+  }
+
+  .shots figcaption {
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-top: 9px;
   }
 
   /* ---------- footer ---------- */
   footer {
-    padding: 34px 0 70px;
-    font-family: 'Space Mono', monospace;
-    font-size: 11.5px;
+    padding: 40px 0 72px;
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-size: 12.5px;
     line-height: 1.9;
     color: var(--ink-soft);
   }
@@ -291,36 +299,55 @@
 </head>
 <body>
 
-<div class="sheet">
+<div class="wrap">
 
-  <header class="cover">
-    <div class="filed">Portfolio · Opened July 2026 · Charlotte, NC</div>
-    <h1>Tom Wilson</h1>
-    <p class="standfirst">Building AI automation at a commercial real estate startup, and writing down what I learn as I go.</p>
-    <div class="contact">
-      <a href="mailto:you@example.com">you@example.com</a>
-      <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/your-username" target="_blank" rel="noopener">GitHub</a>
+  <header class="masthead">
+    <img class="portrait" src="assets/headshot.png" alt="Tom Wilson">
+    <div>
+      <div class="kicker">Professional Portfolio · Indiana Wesleyan University</div>
+      <h1>Tom Wilson</h1>
+      <p class="standfirst">MSc Artificial Intelligence candidate, specialising in Data Analytics. I build systems that turn a vague human need into something that behaves predictably.</p>
+      <div class="contact">
+        <a href="mailto:you@example.com">you@example.com</a>
+        <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/tomjwilson4-blip" target="_blank" rel="noopener">GitHub</a>
+      </div>
     </div>
   </header>
 
   <section id="bio">
-    <span class="note">started this the week I started the MSAI</span>
-    <h2>Who I am</h2>
-    <p>Though I came into artificial intelligence from economics rather than computer science, I have found that the route in matters far less than what you do once you arrive, and the detour has given me something quite useful: I tend to reach for AI as a way of solving an operational problem rather than as an interesting technical exercise in its own right. I work as a Client Success Manager and AI Automation Analyst at LoanBoss, a commercial real estate debt management platform in Charlotte, where I report to the CEO and have a mandate to build automation that takes manual work off the team's plate. Most of what I have built so far lives in that space: document classification and routing pipelines using n8n and the Claude API, put together for a team that was drowning in loan documents and needed them to land in the right place without a human touching every one.</p>
-    <p>I am now working through a Master of Science in Artificial Intelligence at Indiana Wesleyan University, specialising in Data Analytics, largely because I wanted the theory underneath the practice rather than the other way around. This portfolio is where I am keeping the record of it.</p>
+    <h2>Biography</h2>
+    <p>Though I came into artificial intelligence from economics rather than computer science, I have found that the route in matters far less than what you do once you arrive, and the detour has given me something quite useful: I tend to reach for AI as a way of solving a practical problem rather than as an interesting technical exercise in its own right. I studied economics with a minor in data science, which taught me to start from the question rather than the method, and I have carried that instinct into everything I have built since.</p>
+    <p>I am now working through a Master of Science in Artificial Intelligence at Indiana Wesleyan University, specialising in Data Analytics, largely because I wanted the theory underneath the practice rather than the other way around. My interest sits in applied work: taking a model that can technically do something and turning it into a system that reliably does the right thing, including at the awkward edges where it would be easiest to let it improvise. This portfolio is the record of that, built as I go.</p>
   </section>
 
   <section id="value">
-    <span class="note">had to rewrite this three times</span>
-    <h2>What I bring</h2>
+    <h2>Value Proposition</h2>
     <div class="prop">
-      <p>I take a loosely defined business problem, the kind that arrives as a complaint rather than a specification, and turn it into an automated system that actually holds up when it meets real data. That is the thread running through everything here, and it is why I care as much about how a system behaves at its edges as I do about whether the demo works.</p>
+      <p>I take a loosely defined problem, the kind that arrives as a complaint rather than a specification, and turn it into a system that holds up when it meets real input. I care as much about how a system behaves at its edges, and about what it refuses to do, as I do about whether the demonstration works.</p>
     </div>
   </section>
 
+  <section id="audience">
+    <h2>Target Audience</h2>
+    <p>A portfolio that tries to speak to everyone tends to say very little, so I have written this one with three groups in mind, and the artifacts are chosen and framed for them rather than for a general reader.</p>
+    <ul class="audience">
+      <li>
+        <strong>Hiring managers and technical leads</strong>
+        <span>Those assessing whether a candidate can carry an AI system past the demonstration stage, into something tested, scoped, and safe to put in front of a user.</span>
+      </li>
+      <li>
+        <strong>Instructors and programme staff</strong>
+        <span>Those looking for evidence of how coursework translates into working practice, and of the reasoning behind the decisions rather than the deliverable alone.</span>
+      </li>
+      <li>
+        <strong>Fellow students and collaborators</strong>
+        <span>Those who might find the method useful, particularly the guardrail design and the test scenarios, which are the parts I would have wanted to see when I started.</span>
+      </li>
+    </ul>
+  </section>
+
   <section id="artifacts">
-    <span class="note">artifact 1 of 5</span>
     <h2>Artifacts</h2>
 
     <article class="artifact">
@@ -334,50 +361,65 @@
         <p class="artifact-tag">A conversational AI meal-planning assistant.</p>
 
         <div class="row">
-          <div class="row-label">The idea</div>
+          <div class="row-label">Introduction</div>
           <div class="row-body">
-            <p>Chop Chop takes what you already have in the kitchen, how many people you are feeding, any dietary needs, and how much time you have got, and it plans you something worth eating. It asks for what it is missing one question at a time rather than firing a form at you, and when it has enough, it gives you the whole recipe: quantities scaled to the number of people, a full method, timings, and something to serve it with.</p>
+            <p>Chop Chop takes what you already have in the kitchen, how many people you are feeding, any dietary needs, and how much time you have available, and it plans you something worth eating. It asks for what it is missing one question at a time rather than presenting a form, and once it has enough, it returns the complete recipe: quantities scaled to the number of people, a full method, timings, and a suggestion for what to serve alongside.</p>
           </div>
         </div>
 
         <div class="row">
-          <div class="row-label">Why I built it</div>
+          <div class="row-label">Objective</div>
           <div class="row-body">
-            <p>I wanted to take a conversational system the whole way through, not simply prompt a model once and call it a chatbot, but define how it should behave, test it properly against the awkward inputs as well as the easy ones, and end up with evidence that it does what I said it would do.</p>
+            <p>I wanted to take a conversational system the whole way through, not simply prompt a model once and call it a chatbot, but define how it should behave, test it against the awkward inputs as well as the easy ones, and end up with evidence that it does what I said it would do.</p>
           </div>
         </div>
 
         <div class="row">
-          <div class="row-label">How I made it</div>
+          <div class="row-label">Process</div>
           <div class="row-body">
-            <p>I started with the behaviour and kept iterating on the system prompt until it reliably gave a complete recipe rather than a vague outline, and until it asked a single clarifying question when something was missing instead of guessing at what I wanted. The guardrails took as much thought as the core function: it treats an allergy as a hard boundary and not a preference, it declines medical and clinical nutrition questions and points you to a professional instead, and it steers politely back to food when someone tries to take it somewhere else.</p>
-            <p>I then ran it through a deliberate set of test scenarios, some straightforward (a full recipe from a handful of ingredients, a substitution, a week of cheap dinners) and some designed to break it (a nut allergy, a deliberately vague "I'm hungry", a question about lowering cholesterol, a request to write an essay), and captured each one.</p>
-            <p>The genuinely instructive part came at the end, when I went to share it. A bot that anyone can click into needs a live connection to an AI model, and putting that connection inside a plain HTML file would mean handing the API key to anybody who thought to view the page source, which is not a defensible way to ship anything. I weighed rebuilding the whole thing on a hosted platform purely to obtain a public link, went back to the brief, and found it asked for a link <em>or</em> evidence of the bot. So I built the evidence instead: captioned screenshots, organised by the behaviour each one demonstrates.</p>
+            <p>I began with the behaviour, iterating on the system prompt until it reliably produced a complete recipe rather than a vague outline, and until it asked a single clarifying question when something was missing instead of guessing at the answer. The guardrails took as much thought as the core function: it treats a declared allergy as a hard boundary rather than a preference, it declines medical and clinical nutrition questions and points the user to a professional instead, and it steers back to food when a conversation drifts elsewhere.</p>
+            <p>I then ran it through a deliberate set of test scenarios, some straightforward (a full recipe from a handful of ingredients, a substitution, a week of inexpensive dinners) and some designed to break it (a nut allergy, a deliberately vague "I'm hungry", a question about lowering cholesterol, a request to write an essay), capturing each result.</p>
+            <p>The most instructive part came at the end, when I went to share it. A bot that anyone can click into requires a live connection to a model, and placing that connection inside a plain HTML file would mean handing the API key to anybody who thought to view the page source, which is not a defensible way to ship anything. I weighed rebuilding the system on a hosted platform purely to obtain a public link, returned to the brief, and found that it asked for a link <em>or</em> evidence of the bot. So I built the evidence instead, organised by the behaviour each screenshot demonstrates.</p>
           </div>
         </div>
 
         <div class="row">
           <div class="row-label">Tools</div>
           <div class="row-body">
-            <p>Claude (via Cowork) for the build and the prompt design, iterative system-prompt engineering for the behaviour and the guardrails, and Word for the evidence pack.</p>
+            <p>Claude, via Cowork, for the build and the prompt design; iterative system-prompt engineering for the behaviour and the guardrails; Microsoft Word for the evidence documentation.</p>
           </div>
         </div>
 
         <div class="row">
-          <div class="row-label">Why it matters</div>
+          <div class="row-label">Value</div>
           <div class="row-body">
-            <p>To an extent this is a small thing, a meal planner rather than anything commercially serious, and I would not pretend otherwise. Yet the skill underneath it is precisely the one I use at work: taking a vague human need and turning it into a system that behaves predictably, including at the edges where it would be easiest to let it improvise. Putting it in a domain as ordinary as dinner is actually the point, because the mechanics – the guardrails, the scoping, the refusal to guess – are visible without anyone needing to understand commercial real estate first.</p>
-            <p>The guardrails are the part I would point an employer at. Anyone can get a model to produce a recipe. Deciding what it must refuse to do, and then proving it refuses, is the bit that separates something client-facing from something that merely demos well.</p>
+            <p>To an extent this is a modest thing, a meal planner rather than anything commercially serious, and I would not pretend otherwise. Yet the skill underneath it is the one that transfers: taking a vague human need and turning it into a system that behaves predictably, including at the edges where improvisation is the easy option. Setting it in a domain as ordinary as dinner is in fact the point, because the mechanics, the guardrails and the scoping and the refusal to guess, remain visible without the viewer needing any specialist context first.</p>
+            <p>The guardrails are the part I would draw an employer's attention to. Anyone can prompt a model into producing a recipe. Deciding what a system must refuse to do, and then demonstrating that it refuses, is what separates something client-facing from something that merely demonstrates well.</p>
           </div>
         </div>
 
         <div class="evidence">
-          <div class="mono">Evidence — replace before publishing</div>
-          <p>Drop three or four screenshots from the Chop Chop evidence pack into an <code>assets</code> folder beside this file, then point the paths below at them. Or delete this block and link the Word document straight from here.</p>
+          <h4>Evidence</h4>
+          <p>Chop Chop runs inside a Cowork sidebar rather than on a public server, so what follows is the tested behaviour rather than a live link. The full pack, with every scenario captioned, is available below.</p>
+          <a class="dl" href="assets/chop-chop-evidence.pdf" target="_blank" rel="noopener">Download the evidence pack (PDF)</a>
+
           <div class="shots">
-            <img src="assets/chopchop-1.png" alt="Chop Chop returning a full recipe with quantities and method from a list of ingredients">
-            <img src="assets/chopchop-2.png" alt="Chop Chop asking a single clarifying question in response to a vague request">
-            <img src="assets/chopchop-3.png" alt="Chop Chop declining an off-topic request and steering back to food">
+            <figure>
+              <img src="assets/chopchop-1.png" alt="Chop Chop returning a complete recipe with scaled quantities and a numbered method">
+              <figcaption>A full recipe generated from a list of ingredients.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/chopchop-2.png" alt="Chop Chop asking one clarifying question in response to a vague request">
+              <figcaption>Asking rather than guessing when the request is vague.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/chopchop-3.png" alt="Chop Chop handling a declared nut allergy as a strict constraint">
+              <figcaption>Treating a declared allergy as a hard constraint.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/chopchop-4.png" alt="Chop Chop declining an off-topic request and returning to food">
+              <figcaption>Remaining in scope, and declining what is not its purpose.</figcaption>
+            </figure>
           </div>
         </div>
 
@@ -386,9 +428,9 @@
   </section>
 
   <footer>
-    <p>Kept as I go through the MSAI at Indiana Wesleyan University.<br>
+    <p>Maintained throughout the MSAI programme at Indiana Wesleyan University.<br>
     AI assistance was used for research and drafting where the assignment permitted it, and disclosed accordingly.<br>
-    Last entry: July 2026.</p>
+    Last updated July 2026.</p>
   </footer>
 
 </div>
