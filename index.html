@@ -265,26 +265,31 @@
 
   .shots {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
     margin-top: 26px;
   }
 
   .shots figure { margin: 0; }
 
-  .shots img {
-    width: 100%;
+  .shots a.frame {
     display: block;
     border: 1px solid var(--line);
     background: #fff;
+    line-height: 0;
+  }
+
+  .shots img {
+    width: 100%;
+    display: block;
   }
 
   .shots figcaption {
     font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 12.5px;
+    font-size: 13px;
     line-height: 1.55;
     color: var(--ink-soft);
-    margin-top: 9px;
+    margin-top: 10px;
   }
 
   /* ---------- footer ---------- */
@@ -405,19 +410,27 @@
 
           <div class="shots">
             <figure>
-              <img src="assets/chopchop-1.png" alt="Chop Chop returning a complete recipe with scaled quantities and a numbered method">
+              <a class="frame" href="assets/chopchop-1.png" target="_blank" rel="noopener">
+                <img src="assets/chopchop-1.png" alt="Chop Chop returning a complete recipe with scaled quantities and a numbered method">
+              </a>
               <figcaption>A full recipe generated from a list of ingredients.</figcaption>
             </figure>
             <figure>
-              <img src="assets/chopchop-2.png" alt="Chop Chop asking one clarifying question in response to a vague request">
+              <a class="frame" href="assets/chopchop-2.png" target="_blank" rel="noopener">
+                <img src="assets/chopchop-2.png" alt="Chop Chop asking one clarifying question in response to a vague request">
+              </a>
               <figcaption>Asking rather than guessing when the request is vague.</figcaption>
             </figure>
             <figure>
-              <img src="assets/chopchop-3.png" alt="Chop Chop handling a declared nut allergy as a strict constraint">
+              <a class="frame" href="assets/chopchop-3.png" target="_blank" rel="noopener">
+                <img src="assets/chopchop-3.png" alt="Chop Chop handling a declared nut allergy as a strict constraint">
+              </a>
               <figcaption>Treating a declared allergy as a hard constraint.</figcaption>
             </figure>
             <figure>
-              <img src="assets/chopchop-4.png" alt="Chop Chop declining an off-topic request and returning to food">
+              <a class="frame" href="assets/chopchop-4.png" target="_blank" rel="noopener">
+                <img src="assets/chopchop-4.png" alt="Chop Chop declining an off-topic request and returning to food">
+              </a>
               <figcaption>Remaining in scope, and declining what is not its purpose.</figcaption>
             </figure>
           </div>
