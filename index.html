@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tom Wilson — AI Portfolio</title>
+<title>Tom Wilson: AI Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
@@ -139,21 +139,37 @@
   /* ---------- audience ---------- */
   .audience {
     list-style: none;
-    margin: 24px 0 0;
+    margin: 26px 0 0;
     padding: 0;
   }
 
   .audience li {
-    padding: 14px 0;
+    position: relative;
+    padding: 16px 0 16px 26px;
     border-top: 1px solid var(--line);
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-mid);
   }
 
   .audience li:last-child { border-bottom: 1px solid var(--line); }
+
+  .audience li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 25px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .audience strong {
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-weight: 600;
+    color: var(--ink);
+  }
 
   /* ---------- artifact ---------- */
   .artifact {
@@ -303,7 +319,7 @@
 
   <section id="bio">
     <h2>Welcome</h2>
-    <p>I am Tom Wilson, an MSc Artificial Intelligence candidate at Indiana Wesleyan University, specialising in Data Analytics. My academic background is in economics, with a minor in data science, from the College of Charleston.</p>
+    <p>I'm Tom Wilson, an MSc Artificial Intelligence candidate at Indiana Wesleyan University, specialising in Data Analytics. My academic background is in economics, with a minor in data science, from the College of Charleston.</p>
     <p>This portfolio documents my transition from economic analysis into applied artificial intelligence. Each artifact represents a system built to address a defined problem and tested against realistic conditions.</p>
   </section>
 
@@ -311,9 +327,9 @@
     <h2>Target Audience</h2>
     <p>This portfolio is written for three groups:</p>
     <ul class="audience">
-      <li><strong>Hiring managers and technical leads</strong></li>
-      <li><strong>Instructors and programme staff</strong></li>
-      <li><strong>Fellow students and collaborators</strong></li>
+      <li><strong>Hiring managers and technical leads</strong>, assessing whether I can take an AI system past the demo stage into something tested and safe to deploy.</li>
+      <li><strong>Instructors and programme staff</strong>, looking for evidence of how coursework translates into practice, not just the finished deliverable.</li>
+      <li><strong>Fellow students and collaborators</strong>, who might find the guardrail design or test scenarios useful for their own work.</li>
     </ul>
   </section>
 
@@ -403,10 +419,6 @@
       </div>
     </article>
   </section>
-
-  <footer>
-    <p>AI assistance was used for research and drafting where the assignment permitted it, and disclosed accordingly.</p>
-  </footer>
 
 </div>
 
