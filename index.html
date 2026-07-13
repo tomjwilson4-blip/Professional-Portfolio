@@ -144,30 +144,16 @@
   }
 
   .audience li {
-    padding: 16px 0;
+    padding: 14px 0;
     border-top: 1px solid var(--line);
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 4px 24px;
+    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink);
   }
 
   .audience li:last-child { border-bottom: 1px solid var(--line); }
-
-  .audience strong {
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--ink);
-    padding-top: 5px;
-  }
-
-  .audience span { font-size: 17px; color: var(--ink-mid); }
-
-  @media (max-width: 640px) {
-    .audience li { grid-template-columns: 1fr; }
-    .audience strong { padding-top: 0; }
-  }
 
   /* ---------- artifact ---------- */
   .artifact {
@@ -311,44 +297,23 @@
     <div>
       <div class="kicker">Professional Portfolio · Indiana Wesleyan University</div>
       <h1>Tom Wilson</h1>
-      <p class="standfirst">MSc Artificial Intelligence candidate, specialising in Data Analytics. I build systems that turn a vague human need into something that behaves predictably.</p>
-      <div class="contact">
-        <a href="mailto:you@example.com">you@example.com</a>
-        <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/tomjwilson4-blip" target="_blank" rel="noopener">GitHub</a>
-      </div>
+      <p class="standfirst">MSc Artificial Intelligence candidate, specialising in Data Analytics.</p>
     </div>
   </header>
 
   <section id="bio">
-    <h2>Biography</h2>
-    <p>Though I came into artificial intelligence from economics rather than computer science, I have found that the route in matters far less than what you do once you arrive, and the detour has given me something quite useful: I tend to reach for AI as a way of solving a practical problem rather than as an interesting technical exercise in its own right. I studied economics with a minor in data science, which taught me to start from the question rather than the method, and I have carried that instinct into everything I have built since.</p>
-    <p>I am now working through a Master of Science in Artificial Intelligence at Indiana Wesleyan University, specialising in Data Analytics, largely because I wanted the theory underneath the practice rather than the other way around. My interest sits in applied work: taking a model that can technically do something and turning it into a system that reliably does the right thing, including at the awkward edges where it would be easiest to let it improvise. This portfolio is the record of that, built as I go.</p>
-  </section>
-
-  <section id="value">
-    <h2>Value Proposition</h2>
-    <div class="prop">
-      <p>I take a loosely defined problem, the kind that arrives as a complaint rather than a specification, and turn it into a system that holds up when it meets real input. I care as much about how a system behaves at its edges, and about what it refuses to do, as I do about whether the demonstration works.</p>
-    </div>
+    <h2>Welcome</h2>
+    <p>I am Tom Wilson, an MSc Artificial Intelligence candidate at Indiana Wesleyan University, specialising in Data Analytics. My academic background is in economics, with a minor in data science, from the College of Charleston.</p>
+    <p>This portfolio documents my transition from economic analysis into applied artificial intelligence. Each artifact represents a system built to address a defined problem and tested against realistic conditions.</p>
   </section>
 
   <section id="audience">
     <h2>Target Audience</h2>
-    <p>A portfolio that tries to speak to everyone tends to say very little, so I have written this one with three groups in mind, and the artifacts are chosen and framed for them rather than for a general reader.</p>
+    <p>This portfolio is written for three groups:</p>
     <ul class="audience">
-      <li>
-        <strong>Hiring managers and technical leads</strong>
-        <span>Those assessing whether a candidate can carry an AI system past the demonstration stage, into something tested, scoped, and safe to put in front of a user.</span>
-      </li>
-      <li>
-        <strong>Instructors and programme staff</strong>
-        <span>Those looking for evidence of how coursework translates into working practice, and of the reasoning behind the decisions rather than the deliverable alone.</span>
-      </li>
-      <li>
-        <strong>Fellow students and collaborators</strong>
-        <span>Those who might find the method useful, particularly the guardrail design and the test scenarios, which are the parts I would have wanted to see when I started.</span>
-      </li>
+      <li><strong>Hiring managers and technical leads</strong></li>
+      <li><strong>Instructors and programme staff</strong></li>
+      <li><strong>Fellow students and collaborators</strong></li>
     </ul>
   </section>
 
@@ -358,7 +323,6 @@
     <article class="artifact">
       <div class="artifact-head">
         <span>Artifact 01</span>
-        <span>AIML-500 · AI Lab · Workshop 1</span>
       </div>
 
       <div class="artifact-body">
@@ -368,44 +332,44 @@
         <div class="row">
           <div class="row-label">Introduction</div>
           <div class="row-body">
-            <p>Chop Chop takes what you already have in the kitchen, how many people you are feeding, any dietary needs, and how much time you have available, and it plans you something worth eating. It asks for what it is missing one question at a time rather than presenting a form, and once it has enough, it returns the complete recipe: quantities scaled to the number of people, a full method, timings, and a suggestion for what to serve alongside.</p>
+            <p>Chop Chop is a conversational AI assistant that plans a meal from the ingredients on hand, the number of people being fed, any dietary needs, and the time available to cook. It gathers missing details one question at a time rather than through a form, then returns a complete recipe: ingredient quantities scaled to the number of people, a full numbered method, prep and cook time, and a suggestion for what to serve alongside.</p>
           </div>
         </div>
 
         <div class="row">
           <div class="row-label">Objective</div>
           <div class="row-body">
-            <p>I wanted to take a conversational system the whole way through, not simply prompt a model once and call it a chatbot, but define how it should behave, test it against the awkward inputs as well as the easy ones, and end up with evidence that it does what I said it would do.</p>
+            <p>To design a conversational AI system from end to end: define its behaviour, test it against a range of realistic and adversarial inputs, and produce documented evidence that it performs as specified, rather than relying on a single successful demonstration.</p>
           </div>
         </div>
 
         <div class="row">
           <div class="row-label">Process</div>
           <div class="row-body">
-            <p>I began with the behaviour, iterating on the system prompt until it reliably produced a complete recipe rather than a vague outline, and until it asked a single clarifying question when something was missing instead of guessing at the answer. The guardrails took as much thought as the core function: it treats a declared allergy as a hard boundary rather than a preference, it declines medical and clinical nutrition questions and points the user to a professional instead, and it steers back to food when a conversation drifts elsewhere.</p>
-            <p>I then ran it through a deliberate set of test scenarios, some straightforward (a full recipe from a handful of ingredients, a substitution, a week of inexpensive dinners) and some designed to break it (a nut allergy, a deliberately vague "I'm hungry", a question about lowering cholesterol, a request to write an essay), capturing each result.</p>
-            <p>The most instructive part came at the end, when I went to share it. A bot that anyone can click into requires a live connection to a model, and placing that connection inside a plain HTML file would mean handing the API key to anybody who thought to view the page source, which is not a defensible way to ship anything. I weighed rebuilding the system on a hosted platform purely to obtain a public link, returned to the brief, and found that it asked for a link <em>or</em> evidence of the bot. So I built the evidence instead, organised by the behaviour each screenshot demonstrates.</p>
+            <p>I began by iterating on the system prompt until Chop Chop consistently produced complete recipes rather than partial outlines, and asked a single clarifying question when information was missing instead of guessing at an answer.</p>
+            <p>I then built in explicit guardrails. A declared allergy is treated as a strict constraint rather than a preference. Requests for medical or clinical nutrition advice are declined, with the user directed to a professional instead. Off-topic requests, such as being asked to write an essay, are declined and redirected back to food.</p>
+            <p>I tested the system against a set of scenarios covering both core function and guardrail behaviour: a full recipe generated from a short ingredient list, a dietary substitution, a nut allergy, a deliberately vague prompt ("I'm hungry"), a request for medical advice, and an off-topic request. Each interaction was captured as a screenshot.</p>
           </div>
         </div>
 
         <div class="row">
           <div class="row-label">Tools</div>
           <div class="row-body">
-            <p>Claude, via Cowork, for the build and the prompt design; iterative system-prompt engineering for the behaviour and the guardrails; Microsoft Word for the evidence documentation.</p>
+            <p>Claude, accessed via Cowork, for the build and iterative prompt design. Microsoft Word for the evidence documentation.</p>
           </div>
         </div>
 
         <div class="row">
           <div class="row-label">Value</div>
           <div class="row-body">
-            <p>To an extent this is a modest thing, a meal planner rather than anything commercially serious, and I would not pretend otherwise. Yet the skill underneath it is the one that transfers: taking a vague human need and turning it into a system that behaves predictably, including at the edges where improvisation is the easy option. Setting it in a domain as ordinary as dinner is in fact the point, because the mechanics, the guardrails and the scoping and the refusal to guess, remain visible without the viewer needing any specialist context first.</p>
-            <p>The guardrails are the part I would draw an employer's attention to. Anyone can prompt a model into producing a recipe. Deciding what a system must refuse to do, and then demonstrating that it refuses, is what separates something client-facing from something that merely demonstrates well.</p>
+            <p>This is a modest project, a meal planner rather than a commercial system, but the underlying skill is the one that transfers to more serious work: taking a loosely defined need and turning it into a system that behaves predictably, including at points where it would be easiest to improvise.</p>
+            <p>The guardrail behaviour is the part most worth noting. Producing a recipe from a model is straightforward. Deciding what the system must refuse to do, and demonstrating that it consistently does refuse, is what separates something suitable for a real user from something that merely performs well in a demonstration.</p>
           </div>
         </div>
 
         <div class="evidence">
           <h4>Evidence</h4>
-          <p>Chop Chop runs inside a Cowork sidebar rather than on a public server, so what follows is the tested behaviour rather than a live link. The full pack, with every scenario captioned, is available below.</p>
+          <p>Chop Chop runs in a Cowork sidebar rather than on a public server, so this is tested behaviour rather than a live link.</p>
           <a class="dl" href="assets/chop-chop-evidence.pdf" target="_blank" rel="noopener">Download the evidence pack (PDF)</a>
 
           <div class="shots">
@@ -441,9 +405,7 @@
   </section>
 
   <footer>
-    <p>Maintained throughout the MSAI programme at Indiana Wesleyan University.<br>
-    AI assistance was used for research and drafting where the assignment permitted it, and disclosed accordingly.<br>
-    Last updated July 2026.</p>
+    <p>AI assistance was used for research and drafting where the assignment permitted it, and disclosed accordingly.</p>
   </footer>
 
 </div>
