@@ -6,7 +6,7 @@
 <title>Tom Wilson: AI Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #FCFCFA;
@@ -16,411 +16,733 @@
     --ink-soft: #767C82;
     --line: #E0E0DA;
     --accent: #1F3A5F;
+    --accent-soft: rgba(31, 58, 95, 0.08);
+    --rust: #8C4A3C;
+    --sans: 'Libre Franklin', system-ui, sans-serif;
+    --serif: 'Newsreader', Georgia, serif;
   }
-
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition: none !important; animation: none !important; }
   }
-
   body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--serif);
     font-size: 18px;
     line-height: 1.72;
     -webkit-font-smoothing: antialiased;
   }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
 
-  .wrap {
-    max-width: 720px;
+  /* ---------- top nav ---------- */
+  nav.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(252, 252, 250, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 760px;
     margin: 0 auto;
     padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 60px;
+  }
+  .wordmark {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .wordmark span { color: var(--ink-soft); font-weight: 500; }
+  .tabs { display: flex; gap: 4px; }
+  .tab {
+    position: relative;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: none;
+    border: none;
+    padding: 20px 12px;
+    cursor: pointer;
+    transition: color 0.18s ease;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab .num { color: var(--accent); opacity: 0.55; margin-right: 5px; font-weight: 700; }
+  .tab::after {
+    content: "";
+    position: absolute;
+    left: 12px; right: 12px; bottom: -1px;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s ease;
+  }
+  .tab[aria-selected="true"] { color: var(--ink); }
+  .tab[aria-selected="true"]::after { transform: scaleX(1); }
+  .tab[aria-selected="true"] .num { opacity: 1; }
+  @media (max-width: 560px) {
+    .topbar-inner { flex-direction: column; gap: 0; padding-top: 12px; min-height: 0; }
+    .tab { padding: 12px 10px; }
+  }
+
+  /* ---------- panels ---------- */
+  .panel { display: none; }
+  .panel.active { display: block; animation: rise 0.35s ease both; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   /* ---------- masthead ---------- */
   header.masthead {
     border-bottom: 1px solid var(--line);
-    padding: 72px 0 40px;
+    padding: 64px 0 40px;
     display: grid;
     grid-template-columns: 116px 1fr;
     gap: 30px;
     align-items: start;
   }
-
   .portrait {
-    width: 116px;
-    height: 116px;
+    width: 116px; height: 116px;
     border-radius: 50%;
     object-fit: cover;
     border: 1px solid var(--line);
     display: block;
   }
-
   @media (max-width: 560px) {
     header.masthead { grid-template-columns: 1fr; gap: 24px; }
   }
-
   .kicker {
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
     color: var(--ink-soft);
     margin-bottom: 14px;
   }
-
   h1 {
-    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-family: var(--sans);
     font-weight: 700;
     font-size: clamp(32px, 5vw, 42px);
     letter-spacing: -0.022em;
     line-height: 1.1;
     margin: 0 0 14px;
   }
-
-  .standfirst {
-    font-size: 19px;
-    color: var(--ink-mid);
-    margin: 0;
-  }
-
-  .contact {
-    margin-top: 24px;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .contact a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(31, 58, 95, 0.3);
-    padding-bottom: 2px;
-  }
-  .contact a:hover, .contact a:focus-visible { border-bottom-color: var(--accent); }
+  .standfirst { font-size: 19px; color: var(--ink-mid); margin: 0; }
 
   /* ---------- sections ---------- */
-  section {
-    padding: 52px 0;
-    border-bottom: 1px solid var(--line);
-  }
+  section { padding: 52px 0; border-bottom: 1px solid var(--line); }
   section:last-of-type { border-bottom: none; }
-
   h2 {
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    font-family: var(--sans);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--ink-soft);
     margin: 0 0 24px;
   }
-
   p { margin: 0 0 20px; }
   p:last-child { margin-bottom: 0; }
 
-  /* ---------- value proposition ---------- */
-  .prop {
-    border-left: 2px solid var(--accent);
-    padding: 4px 0 4px 26px;
-    font-size: 21px;
-    line-height: 1.6;
-  }
-
-  /* ---------- audience ---------- */
-  .audience {
-    list-style: none;
-    margin: 26px 0 0;
-    padding: 0;
-  }
-
+  /* ---------- audience (consistent serif, dashes) ---------- */
+  .audience { list-style: none; margin: 26px 0 0; padding: 0; }
   .audience li {
     position: relative;
     padding: 16px 0 16px 26px;
     border-top: 1px solid var(--line);
+    font-family: var(--serif);
     font-size: 17px;
     line-height: 1.6;
     color: var(--ink-mid);
   }
-
   .audience li:last-child { border-bottom: 1px solid var(--line); }
-
   .audience li::before {
     content: "";
     position: absolute;
-    left: 2px;
-    top: 25px;
-    width: 7px;
-    height: 7px;
+    left: 2px; top: 25px;
+    width: 7px; height: 7px;
     border-radius: 50%;
     background: var(--accent);
   }
-
   .audience strong {
-    font-family: 'Libre Franklin', system-ui, sans-serif;
+    font-family: var(--serif);
     font-weight: 600;
     color: var(--ink);
   }
 
-  /* ---------- artifact ---------- */
-  .artifact {
+  /* ---------- artifact index cards (home) ---------- */
+  .index-cards { display: grid; gap: 18px; margin-top: 4px; }
+  .index-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     border: 1px solid var(--line);
+    background: #fff;
+    padding: 26px 28px;
+    transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
   }
-
-  .artifact-head {
-    border-bottom: 1px solid var(--line);
-    background: var(--panel);
-    padding: 16px 26px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 14px;
-    flex-wrap: wrap;
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
+  .index-card:hover, .index-card:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(22, 25, 28, 0.07);
   }
-
-  .artifact-body { padding: 30px 26px 32px; }
-
-  .artifact-body h3 {
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 26px;
+  .index-card .ic-kicker {
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .index-card h3 {
+    font-family: var(--sans);
+    font-size: 21px; font-weight: 600;
     letter-spacing: -0.015em;
     margin: 0 0 6px;
   }
-
-  .artifact-tag {
-    font-size: 18px;
-    color: var(--ink-mid);
-    margin: 0 0 28px;
+  .index-card p { font-size: 16.5px; color: var(--ink-mid); margin: 0; }
+  .index-card .go {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: var(--sans);
+    font-size: 13px; font-weight: 600;
+    color: var(--accent);
   }
 
+  /* ---------- artifact page header ---------- */
+  .art-head { padding: 56px 0 36px; border-bottom: 1px solid var(--line); }
+  .art-head .kicker { color: var(--accent); }
+  .art-head h1 { font-size: clamp(28px, 4.5vw, 36px); }
+  .art-head .standfirst { font-size: 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .chip {
+    font-family: var(--sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    border: 1px solid rgba(31, 58, 95, 0.35);
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+
+  /* ---------- artifact rows ---------- */
   .row {
     display: grid;
     grid-template-columns: 128px 1fr;
     gap: 4px 28px;
-    padding: 22px 0;
-    border-top: 1px solid var(--line);
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
   }
-
   .row-label {
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--ink-soft);
     padding-top: 8px;
   }
-
   .row-body p { font-size: 17px; }
-
   @media (max-width: 640px) {
     .row { grid-template-columns: 1fr; gap: 6px; }
     .row-label { padding-top: 0; }
   }
 
-  /* ---------- evidence ---------- */
-  .evidence {
-    margin-top: 30px;
-    padding-top: 26px;
+  /* ---------- report styling (artifact 02) ---------- */
+  .report-sec { padding: 44px 0; border-bottom: 1px solid var(--line); }
+  .report-sec:last-of-type { border-bottom: none; }
+  .report-sec h3 {
+    font-family: var(--sans);
+    font-size: 22px; font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0 0 18px;
+  }
+  .report-sec h4 {
+    font-family: var(--sans);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent);
+    margin: 26px 0 12px;
+  }
+  .case-tag {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #fff;
+    background: var(--accent);
+    padding: 5px 12px;
+    margin-bottom: 14px;
+  }
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 24px;
+  }
+  @media (max-width: 640px) { .split { grid-template-columns: 1fr; } }
+  .verdict {
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--accent);
+    background: #fff;
+    padding: 22px 24px;
+  }
+  .verdict.against { border-top-color: var(--rust); }
+  .verdict h5 {
+    font-family: var(--sans);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+  .verdict.against h5 { color: var(--rust); }
+  .verdict ul { list-style: none; margin: 0; padding: 0; }
+  .verdict li {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--ink-mid);
+    padding: 10px 0 10px 18px;
     border-top: 1px solid var(--line);
+    position: relative;
+  }
+  .verdict li:first-child { border-top: none; padding-top: 0; }
+  .verdict li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 18px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .verdict li:first-child::before { top: 8px; }
+  .verdict.against li::before { background: var(--rust); }
+  .verdict strong { font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--ink); }
+
+  /* comparison table */
+  .cmp { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 15.5px; }
+  .cmp th {
+    font-family: var(--sans);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-align: left;
+    color: #fff;
+    background: var(--accent);
+    padding: 12px 16px;
+  }
+  .cmp td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-mid);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  .cmp td:first-child {
+    font-family: var(--sans);
+    font-size: 13.5px; font-weight: 600;
+    color: var(--ink);
+  }
+  .cmp tr:nth-child(even) td { background: var(--panel); }
+  @media (max-width: 640px) {
+    .cmp { font-size: 14px; }
+    .cmp th, .cmp td { padding: 10px 10px; }
   }
 
-  .evidence h4 {
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 11px;
+  /* decision factors */
+  .factors {
+    border-left: 2px solid var(--accent);
+    background: var(--panel);
+    padding: 24px 28px;
+    margin-top: 24px;
+  }
+  .factors p { font-size: 16.5px; color: var(--ink-mid); }
+  .factors strong { font-family: var(--sans); font-size: 14.5px; font-weight: 600; color: var(--ink); }
+
+  /* conclusion */
+  .conclusion {
+    border: 1px solid var(--line);
+    background: var(--accent);
+    color: rgba(255, 255, 255, 0.92);
+    padding: 34px 36px;
+  }
+  .conclusion h4 {
+    font-family: var(--sans);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0 0 16px;
+  }
+  .conclusion p { font-size: 17px; }
+  .conclusion .kicker-line {
+    font-family: var(--sans);
     font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    font-size: 16px;
+    color: #fff;
+  }
+
+  /* ---------- evidence ---------- */
+  .evidence { padding: 44px 0 8px; }
+  .evidence h4 {
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--ink-soft);
     margin: 0 0 14px;
   }
-
   .evidence > p { font-size: 17px; margin-bottom: 20px; }
-
   .dl {
     display: inline-block;
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
+    font-family: var(--sans);
+    font-size: 14px; font-weight: 500;
     color: #fff;
     background: var(--accent);
     padding: 11px 20px;
     text-decoration: none;
+    transition: background 0.18s ease;
   }
   .dl:hover, .dl:focus-visible { background: var(--ink); }
-
   .shots {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
     margin-top: 26px;
   }
-
   .shots figure { margin: 0; }
-
   .shots a.frame {
     display: block;
     border: 1px solid var(--line);
     background: #fff;
     line-height: 0;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
   }
-
-  .shots img {
-    width: 100%;
-    display: block;
-  }
-
+  .shots a.frame:hover { border-color: var(--accent); box-shadow: 0 8px 24px rgba(22, 25, 28, 0.08); }
+  .shots img { width: 100%; display: block; }
   .shots figcaption {
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 13px;
-    line-height: 1.55;
+    font-family: var(--sans);
+    font-size: 13px; line-height: 1.55;
     color: var(--ink-soft);
     margin-top: 10px;
   }
 
   /* ---------- footer ---------- */
   footer {
-    padding: 40px 0 72px;
-    font-family: 'Libre Franklin', system-ui, sans-serif;
-    font-size: 12.5px;
+    border-top: 1px solid var(--line);
+    padding: 36px 0 64px;
+    font-family: var(--sans);
+    font-size: 13px;
     line-height: 1.9;
     color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
   }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a class="wordmark" href="#home" data-goto="home">Tom Wilson <span>· AI Portfolio</span></a>
+    <div class="tabs" role="tablist" aria-label="Portfolio sections">
+      <button class="tab" role="tab" id="tab-home" aria-selected="true" data-tab="home">Home</button>
+      <button class="tab" role="tab" id="tab-a1" aria-selected="false" data-tab="a1"><span class="num">01</span>Chop Chop</button>
+      <button class="tab" role="tab" id="tab-a2" aria-selected="false" data-tab="a2"><span class="num">02</span>ML vs DL</button>
+    </div>
+  </div>
+</nav>
+
 <div class="wrap">
 
-  <header class="masthead">
-    <img class="portrait" src="assets/headshot.png" alt="Tom Wilson">
-    <div>
-      <div class="kicker">Professional Portfolio · Indiana Wesleyan University</div>
-      <h1>Tom Wilson</h1>
-      <p class="standfirst">MSc Artificial Intelligence candidate, specialising in Data Analytics.</p>
+  <!-- ============ HOME ============ -->
+  <main class="panel active" id="panel-home" role="tabpanel" aria-labelledby="tab-home">
+    <header class="masthead">
+      <img class="portrait" src="assets/headshot.png" alt="Tom Wilson">
+      <div>
+        <div class="kicker">Professional Portfolio · Indiana Wesleyan University</div>
+        <h1>Tom Wilson</h1>
+        <p class="standfirst">MSc Artificial Intelligence candidate, specialising in Data Analytics.</p>
+      </div>
+    </header>
+
+    <section id="bio">
+      <h2>Welcome</h2>
+      <p>I'm Tom Wilson, an MSc Artificial Intelligence candidate at Indiana Wesleyan University, specialising in Data Analytics. My academic background is in economics, with a minor in data science, from the College of Charleston.</p>
+      <p>This portfolio documents my transition from economic analysis into applied artificial intelligence. Each artifact represents a system built to address a defined problem and tested against realistic conditions.</p>
+    </section>
+
+    <section id="audience">
+      <h2>Target Audience</h2>
+      <p>This portfolio is written for three groups:</p>
+      <ul class="audience">
+        <li><strong>Hiring managers and technical leads</strong> – assessing whether I can take an AI system past the demo stage into something tested and safe to deploy.</li>
+        <li><strong>Instructors and programme staff</strong> – looking for evidence of how coursework translates into practice, not just the finished deliverable.</li>
+        <li><strong>Fellow students and collaborators</strong> – who might find the guardrail design or test scenarios useful for their own work.</li>
+      </ul>
+    </section>
+
+    <section id="artifact-index">
+      <h2>Artifacts</h2>
+      <div class="index-cards">
+        <a class="index-card" href="#a1" data-goto="a1">
+          <div class="ic-kicker">Artifact 01</div>
+          <h3>Chop Chop</h3>
+          <p>A conversational AI meal-planning assistant, designed end to end and tested against realistic and adversarial inputs.</p>
+          <span class="go">Read the artifact →</span>
+        </a>
+        <a class="index-card" href="#a2" data-goto="a2">
+          <div class="ic-kicker">Artifact 02</div>
+          <h3>Machine Learning vs Deep Learning</h3>
+          <p>A comparative analysis grounded in two real-world case studies: football transfer valuation and image recognition in autonomous driving.</p>
+          <span class="go">Read the artifact →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ ARTIFACT 01 ============ -->
+  <main class="panel" id="panel-a1" role="tabpanel" aria-labelledby="tab-a1">
+    <header class="art-head">
+      <div class="kicker">Artifact 01</div>
+      <h1>Chop Chop</h1>
+      <p class="standfirst">A conversational AI meal-planning assistant.</p>
+      <div class="chips">
+        <span class="chip">Conversational AI</span>
+        <span class="chip">Prompt Design</span>
+        <span class="chip">Guardrails</span>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="row-label">Introduction</div>
+      <div class="row-body">
+        <p>Chop Chop is a conversational AI assistant that plans a meal from the ingredients on hand, the number of people being fed, any dietary needs, and the time available to cook. It gathers missing details one question at a time rather than through a form, then returns a complete recipe: ingredient quantities scaled to the number of people, a full numbered method, prep and cook time, and a suggestion for what to serve alongside.</p>
+      </div>
     </div>
-  </header>
-
-  <section id="bio">
-    <h2>Welcome</h2>
-    <p>I'm Tom Wilson, an MSc Artificial Intelligence candidate at Indiana Wesleyan University, specialising in Data Analytics. My academic background is in economics, with a minor in data science, from the College of Charleston.</p>
-    <p>This portfolio documents my transition from economic analysis into applied artificial intelligence. Each artifact represents a system built to address a defined problem and tested against realistic conditions.</p>
-  </section>
-
-  <section id="audience">
-    <h2>Target Audience</h2>
-    <p>This portfolio is written for three groups:</p>
-    <ul class="audience">
-      <li><strong>Hiring managers and technical leads</strong>, assessing whether I can take an AI system past the demo stage into something tested and safe to deploy.</li>
-      <li><strong>Instructors and programme staff</strong>, looking for evidence of how coursework translates into practice, not just the finished deliverable.</li>
-      <li><strong>Fellow students and collaborators</strong>, who might find the guardrail design or test scenarios useful for their own work.</li>
-    </ul>
-  </section>
-
-  <section id="artifacts">
-    <h2>Artifacts</h2>
-
-    <article class="artifact">
-      <div class="artifact-head">
-        <span>Artifact 01</span>
+    <div class="row">
+      <div class="row-label">Objective</div>
+      <div class="row-body">
+        <p>To design a conversational AI system from end to end: define its behaviour, test it against a range of realistic and adversarial inputs, and produce documented evidence that it performs as specified, rather than relying on a single successful demonstration.</p>
       </div>
-
-      <div class="artifact-body">
-        <h3>Chop Chop</h3>
-        <p class="artifact-tag">A conversational AI meal-planning assistant.</p>
-
-        <div class="row">
-          <div class="row-label">Introduction</div>
-          <div class="row-body">
-            <p>Chop Chop is a conversational AI assistant that plans a meal from the ingredients on hand, the number of people being fed, any dietary needs, and the time available to cook. It gathers missing details one question at a time rather than through a form, then returns a complete recipe: ingredient quantities scaled to the number of people, a full numbered method, prep and cook time, and a suggestion for what to serve alongside.</p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="row-label">Objective</div>
-          <div class="row-body">
-            <p>To design a conversational AI system from end to end: define its behaviour, test it against a range of realistic and adversarial inputs, and produce documented evidence that it performs as specified, rather than relying on a single successful demonstration.</p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="row-label">Process</div>
-          <div class="row-body">
-            <p>I began by iterating on the system prompt until Chop Chop consistently produced complete recipes rather than partial outlines, and asked a single clarifying question when information was missing instead of guessing at an answer.</p>
-            <p>I then built in explicit guardrails. A declared allergy is treated as a strict constraint rather than a preference. Requests for medical or clinical nutrition advice are declined, with the user directed to a professional instead. Off-topic requests, such as being asked to write an essay, are declined and redirected back to food.</p>
-            <p>I tested the system against a set of scenarios covering both core function and guardrail behaviour: a full recipe generated from a short ingredient list, a dietary substitution, a nut allergy, a deliberately vague prompt ("I'm hungry"), a request for medical advice, and an off-topic request. Each interaction was captured as a screenshot.</p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="row-label">Tools</div>
-          <div class="row-body">
-            <p>Claude, accessed via Cowork, for the build and iterative prompt design. Microsoft Word for the evidence documentation.</p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="row-label">Value</div>
-          <div class="row-body">
-            <p>This is a modest project, a meal planner rather than a commercial system, but the underlying skill is the one that transfers to more serious work: taking a loosely defined need and turning it into a system that behaves predictably, including at points where it would be easiest to improvise.</p>
-            <p>The guardrail behaviour is the part most worth noting. Producing a recipe from a model is straightforward. Deciding what the system must refuse to do, and demonstrating that it consistently does refuse, is what separates something suitable for a real user from something that merely performs well in a demonstration.</p>
-          </div>
-        </div>
-
-        <div class="evidence">
-          <h4>Evidence</h4>
-          <p>Chop Chop runs in a Cowork sidebar rather than on a public server, so this is tested behaviour rather than a live link.</p>
-          <a class="dl" href="assets/chop-chop-evidence.pdf" target="_blank" rel="noopener">Download the evidence pack (PDF)</a>
-
-          <div class="shots">
-            <figure>
-              <a class="frame" href="assets/chopchop-1.png" target="_blank" rel="noopener">
-                <img src="assets/chopchop-1.png" alt="Chop Chop returning a complete recipe with scaled quantities and a numbered method">
-              </a>
-              <figcaption>A full recipe generated from a list of ingredients.</figcaption>
-            </figure>
-            <figure>
-              <a class="frame" href="assets/chopchop-2.png" target="_blank" rel="noopener">
-                <img src="assets/chopchop-2.png" alt="Chop Chop asking one clarifying question in response to a vague request">
-              </a>
-              <figcaption>Asking rather than guessing when the request is vague.</figcaption>
-            </figure>
-            <figure>
-              <a class="frame" href="assets/chopchop-3.png" target="_blank" rel="noopener">
-                <img src="assets/chopchop-3.png" alt="Chop Chop handling a declared nut allergy as a strict constraint">
-              </a>
-              <figcaption>Treating a declared allergy as a hard constraint.</figcaption>
-            </figure>
-            <figure>
-              <a class="frame" href="assets/chopchop-4.png" target="_blank" rel="noopener">
-                <img src="assets/chopchop-4.png" alt="Chop Chop declining an off-topic request and returning to food">
-              </a>
-              <figcaption>Remaining in scope, and declining what is not its purpose.</figcaption>
-            </figure>
-          </div>
-        </div>
-
+    </div>
+    <div class="row">
+      <div class="row-label">Process</div>
+      <div class="row-body">
+        <p>I began by iterating on the system prompt until Chop Chop consistently produced complete recipes rather than partial outlines, and asked a single clarifying question when information was missing instead of guessing at an answer.</p>
+        <p>I then built in explicit guardrails. A declared allergy is treated as a strict constraint rather than a preference. Requests for medical or clinical nutrition advice are declined, with the user directed to a professional instead. Off-topic requests, such as being asked to write an essay, are declined and redirected back to food.</p>
+        <p>I tested the system against a set of scenarios covering both core function and guardrail behaviour: a full recipe generated from a short ingredient list, a dietary substitution, a nut allergy, a deliberately vague prompt ("I'm hungry"), a request for medical advice, and an off-topic request. Each interaction was captured as a screenshot.</p>
       </div>
-    </article>
-  </section>
+    </div>
+    <div class="row">
+      <div class="row-label">Tools</div>
+      <div class="row-body">
+        <p>Claude, accessed via Cowork, for the build and iterative prompt design. Microsoft Word for the evidence documentation.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-label">Value</div>
+      <div class="row-body">
+        <p>This is a modest project, a meal planner rather than a commercial system, but the underlying skill is the one that transfers to more serious work: taking a loosely defined need and turning it into a system that behaves predictably, including at points where it would be easiest to improvise.</p>
+        <p>The guardrail behaviour is the part most worth noting. Producing a recipe from a model is straightforward. Deciding what the system must refuse to do, and demonstrating that it consistently does refuse, is what separates something suitable for a real user from something that merely performs well in a demonstration.</p>
+      </div>
+    </div>
 
+    <div class="evidence">
+      <h4>Evidence</h4>
+      <p>Chop Chop runs in a Cowork sidebar rather than on a public server, so this is tested behaviour rather than a live link.</p>
+      <a class="dl" href="assets/chop-chop-evidence.pdf" target="_blank" rel="noopener">Download the evidence pack (PDF)</a>
+      <div class="shots">
+        <figure>
+          <a class="frame" href="assets/chopchop-1.png" target="_blank" rel="noopener">
+            <img src="assets/chopchop-1.png" alt="Chop Chop returning a complete recipe with scaled quantities and a numbered method">
+          </a>
+          <figcaption>A full recipe generated from a list of ingredients.</figcaption>
+        </figure>
+        <figure>
+          <a class="frame" href="assets/chopchop-2.png" target="_blank" rel="noopener">
+            <img src="assets/chopchop-2.png" alt="Chop Chop asking one clarifying question in response to a vague request">
+          </a>
+          <figcaption>Asking rather than guessing when the request is vague.</figcaption>
+        </figure>
+        <figure>
+          <a class="frame" href="assets/chopchop-3.png" target="_blank" rel="noopener">
+            <img src="assets/chopchop-3.png" alt="Chop Chop handling a declared nut allergy as a strict constraint">
+          </a>
+          <figcaption>Treating a declared allergy as a hard constraint.</figcaption>
+        </figure>
+        <figure>
+          <a class="frame" href="assets/chopchop-4.png" target="_blank" rel="noopener">
+            <img src="assets/chopchop-4.png" alt="Chop Chop declining an off-topic request and returning to food">
+          </a>
+          <figcaption>Remaining in scope, and declining what is not its purpose.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ ARTIFACT 02 ============ -->
+  <main class="panel" id="panel-a2" role="tabpanel" aria-labelledby="tab-a2">
+    <header class="art-head">
+      <div class="kicker">Artifact 02</div>
+      <h1>Machine Learning vs Deep Learning</h1>
+      <p class="standfirst">A comparative analysis built around one deciding question: does the problem have features a human can reasonably define by hand?</p>
+      <div class="chips">
+        <span class="chip">Linear Regression</span>
+        <span class="chip">Convolutional Neural Networks</span>
+        <span class="chip">Feature Engineering</span>
+      </div>
+    </header>
+
+    <div class="report-sec">
+      <h3>Overview</h3>
+      <p>Machine learning and deep learning are often used interchangeably, but treating them as the same thing obscures a distinction that determines which approach is suitable for a given problem. This report examines two examples: predicting football transfer value with linear regression as a machine learning (ML) case, and image recognition in autonomous driving as a deep learning (DL) case. The argument made is that the right choice between the two comes down to whether the problem has features a human can reasonably define by hand.</p>
+    </div>
+
+    <div class="report-sec">
+      <span class="case-tag">Case Study 1</span>
+      <h3>Machine Learning – Predicting Football Transfer Value</h3>
+      <h4>Real-World Application: Player Market Valuation</h4>
+      <p>Linear regression, commonly used for structured prediction problems such as house pricing, can also estimate a footballer's transfer value. Researchers built a multiple linear regression model to estimate the market value of forward players, using physical and performance factors such as age, goals scored, assists, and appearances across a season as inputs (Kologlu et al., 2018). This mirrors how clubs and agents already think about value informally – the model's task is to learn the weighting between these factors, rather than to discover which factors matter in the first place.</p>
+      <div class="split">
+        <div class="verdict">
+          <h5>Why classical ML suits it</h5>
+          <ul>
+            <li><strong>Countable, well-understood features.</strong> Goals, assists, age, and minutes are already available in structured form for every player in a league.</li>
+            <li><strong>Minimal feature engineering.</strong> Nothing beyond selecting the right columns is required.</li>
+            <li><strong>Interpretability.</strong> A club can point to a coefficient in a negotiation and argue that a player's goal return justifies a particular valuation.</li>
+          </ul>
+        </div>
+        <div class="verdict against">
+          <h5>Why deep learning does not</h5>
+          <ul>
+            <li><strong>No hidden patterns.</strong> The inputs are already defined and few in number – there are no raw pixels or text for a neural network to discover structure in.</li>
+            <li><strong>Overfitting risk.</strong> Training a many-layered model on a few thousand transfers would be as likely to overfit as to improve on the regression.</li>
+            <li><strong>No upside.</strong> The regression is already interpretable and quick to train.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-sec">
+      <span class="case-tag">Case Study 2</span>
+      <h3>Deep Learning – Image Recognition in Autonomous Driving</h3>
+      <h4>Real-World Application: Self-Driving Vehicles</h4>
+      <p>A self-driving vehicle is typically built using deep reinforcement learning alongside convolutional neural networks (CNNs), and it is the CNN that performs the image recognition: processing a continuous stream of camera frames and LIDAR readings and recognising pedestrians, traffic lights, and road signs before the vehicle uses that understanding to navigate safely. This is a live, high-stakes application rather than a hypothetical one. Waymo was reported earlier this year to be operating fully autonomous ride-hailing across ten US metro areas, completing several hundred thousand paid rides per week, whilst incidents such as the January 2026 investigation into a Waymo vehicle near a Santa Monica school show just how much is riding on these perception systems getting it right (Dilmegani &amp; Sezer, 2026).</p>
+      <div class="split">
+        <div class="verdict">
+          <h5>Why deep learning suits it</h5>
+          <ul>
+            <li><strong>No hand-writable feature list.</strong> There is no small, fixed set of features that could describe a pedestrian about to step into the road, or a traffic light obscured by glare.</li>
+            <li><strong>Automatic feature learning.</strong> A camera frame is a grid of pixel values; a CNN learns its own hierarchy of features – edges, then shapes, then whole objects – directly from sensor input.</li>
+            <li><strong>Learned driving policy.</strong> Reinforcement learning lets the system learn from the consequences of its actions rather than a predefined rulebook.</li>
+          </ul>
+        </div>
+        <div class="verdict against">
+          <h5>Why classical ML does not</h5>
+          <ul>
+            <li><strong>Beyond hand-picked features.</strong> Even a well-tuned decision tree or regression, fed hand-picked image statistics, would struggle with the nonlinear, high-dimensional patterns in a road scene.</li>
+            <li><strong>Brittle in the real world.</strong> It would likely fail outside narrow, controlled conditions – a shortcoming with obvious safety consequences at motorway speed.</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top: 24px;">The trade-off is that deep learning demands what ML does not: enormous labelled datasets drawn from millions of miles of driving, and substantial computing power to train and run in real time. That cost is justified here because the alternative would not solve the problem to any acceptable, or safe, standard.</p>
+    </div>
+
+    <div class="report-sec">
+      <h3>Comparative Analysis</h3>
+      <table class="cmp">
+        <thead>
+          <tr><th>Factor</th><th>Transfer value (ML)</th><th>Autonomous driving (DL)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Data type</td><td>Structured player statistics</td><td>Raw camera frames and LIDAR readings</td></tr>
+          <tr><td>Feature engineering</td><td>Manual – selecting the right columns</td><td>Automatic – a learned hierarchy from edges to objects</td></tr>
+          <tr><td>Interpretability</td><td>High – coefficients can be argued in a negotiation</td><td>Low – learned features are opaque</td></tr>
+          <tr><td>Data requirements</td><td>A few thousand transfer records</td><td>Millions of miles of labelled driving data</td></tr>
+          <tr><td>Computational cost</td><td>Quick to train</td><td>Substantial, and must run in real time</td></tr>
+        </tbody>
+      </table>
+      <div class="factors">
+        <p><strong>The deciding question</strong> – does the problem have features a human can reasonably define by hand? If it does, a simple, interpretable ML model is likely sufficient. If it does not, deep learning is the only realistic route, and its cost in data and computing power is the price of solving the problem at all.</p>
+      </div>
+    </div>
+
+    <div class="report-sec">
+      <div class="conclusion">
+        <h4>Conclusion</h4>
+        <p>These two examples show that the choice between machine learning and deep learning is not a question of which is better in the abstract, but of which matches the structure of the data in front of you. Predicting football transfer value succeeds with a simple, interpretable ML model precisely because its useful features are visible and easy to define by hand. Image recognition in autonomous driving requires deep learning precisely because its features are not, and can only realistically be discovered by a network with enough layers, sensor data, and computing power to learn them itself.</p>
+        <p class="kicker-line">Recognising which situation applies is the real skill being tested by this comparison, rather than any inherent preference for one method over the other.</p>
+      </div>
+    </div>
+
+    <div class="report-sec">
+      <h3>References</h3>
+      <p style="font-size: 15.5px; color: var(--ink-mid);">Dilmegani, C., &amp; Sezer, S. (2026, March 10). <em>Top 50 deep learning use case &amp; case studies</em>. AIMultiple. https://aimultiple.com/deep-learning-applications</p>
+      <p style="font-size: 15.5px; color: var(--ink-mid);">Kologlu, Y., Birinci, H., Kanalmaz, S. I., &amp; Ozyilmaz, B. (2018). <em>A multiple linear regression approach for estimating the market value of football players in forward position</em>. arXiv. https://arxiv.org/pdf/1807.01104</p>
+    </div>
+
+    <div class="evidence">
+      <h4>Evidence</h4>
+      <p>The full written report is available as a Word document.</p>
+      <a class="dl" href="assets/ml-vs-dl-report.docx">Download the full report (Word)</a>
+    </div>
+  </main>
+
+  <footer>
+    <div>© 2026 Tom Wilson · MSc Artificial Intelligence, Indiana Wesleyan University</div>
+    <div><a href="mailto:tomjwilson4@gmail.com">tomjwilson4@gmail.com</a></div>
+  </footer>
 </div>
 
+<script>
+  (function () {
+    var tabs = document.querySelectorAll('.tab');
+    var panels = { home: 'panel-home', a1: 'panel-a1', a2: 'panel-a2' };
+
+    function show(id, updateHash) {
+      if (!panels[id]) id = 'home';
+      tabs.forEach(function (t) {
+        t.setAttribute('aria-selected', String(t.dataset.tab === id));
+      });
+      Object.keys(panels).forEach(function (key) {
+        var el = document.getElementById(panels[key]);
+        el.classList.toggle('active', key === id);
+      });
+      if (updateHash) history.replaceState(null, '', '#' + id);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () { show(t.dataset.tab, true); });
+    });
+
+    document.querySelectorAll('[data-goto]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        show(a.dataset.goto, true);
+      });
+    });
+
+    window.addEventListener('hashchange', function () {
+      show(location.hash.replace('#', ''), false);
+    });
+
+    show(location.hash.replace('#', '') || 'home', false);
+  })();
+</script>
 </body>
 </html>
