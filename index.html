@@ -331,44 +331,57 @@
   .verdict.against li::before { background: var(--rust); }
   .verdict strong { font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--ink); }
 
-  /* comparison table */
-  .cmp { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 15.5px; }
-  .cmp th {
+  /* divergence ledger */
+  .diverge-heads {
+    display: grid;
+    grid-template-columns: 1fr 130px 1fr;
+    gap: 20px;
+    padding-bottom: 12px;
     font-family: var(--sans);
-    font-size: 12px; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    text-align: left;
-    color: #fff;
-    background: var(--accent);
-    padding: 12px 16px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent);
   }
-  .cmp td {
-    padding: 13px 16px;
-    border-bottom: 1px solid var(--line);
-    color: var(--ink-mid);
-    vertical-align: top;
+  .diverge-heads span:last-child { text-align: right; }
+  .diverge { list-style: none; margin: 0; padding: 0; }
+  .diverge li {
+    display: grid;
+    grid-template-columns: 1fr 130px 1fr;
+    gap: 20px;
+    align-items: baseline;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    font-size: 16px;
     line-height: 1.55;
+    color: var(--ink-mid);
   }
-  .cmp td:first-child {
+  .diverge li:last-child { border-bottom: 1px solid var(--line); }
+  .diverge .dim {
     font-family: var(--sans);
-    font-size: 13.5px; font-weight: 600;
-    color: var(--ink);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
   }
-  .cmp tr:nth-child(even) td { background: var(--panel); }
+  .diverge .ml { text-align: left; }
+  .diverge .dl-side { text-align: right; }
   @media (max-width: 640px) {
-    .cmp { font-size: 14px; }
-    .cmp th, .cmp td { padding: 10px 10px; }
+    .diverge-heads { display: none; }
+    .diverge li { grid-template-columns: 1fr; gap: 6px; }
+    .diverge .dim { text-align: left; order: -1; }
+    .diverge .dl-side { text-align: left; color: var(--accent); }
   }
 
-  /* decision factors */
-  .factors {
+  /* pull quote */
+  .prop {
     border-left: 2px solid var(--accent);
-    background: var(--panel);
-    padding: 24px 28px;
-    margin-top: 24px;
+    margin: 30px 0 0;
+    padding: 4px 0 4px 26px;
+    font-family: var(--serif);
+    font-size: 21px;
+    line-height: 1.6;
+    color: var(--ink);
   }
-  .factors p { font-size: 16.5px; color: var(--ink-mid); }
-  .factors strong { font-family: var(--sans); font-size: 14.5px; font-weight: 600; color: var(--ink); }
 
   /* conclusion */
   .conclusion {
@@ -663,22 +676,41 @@
     </div>
 
     <div class="report-sec">
-      <h3>Comparative Analysis</h3>
-      <table class="cmp">
-        <thead>
-          <tr><th>Factor</th><th>Transfer value (ML)</th><th>Autonomous driving (DL)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Data type</td><td>Structured player statistics</td><td>Raw camera frames and LIDAR readings</td></tr>
-          <tr><td>Feature engineering</td><td>Manual – selecting the right columns</td><td>Automatic – a learned hierarchy from edges to objects</td></tr>
-          <tr><td>Interpretability</td><td>High – coefficients can be argued in a negotiation</td><td>Low – learned features are opaque</td></tr>
-          <tr><td>Data requirements</td><td>A few thousand transfer records</td><td>Millions of miles of labelled driving data</td></tr>
-          <tr><td>Computational cost</td><td>Quick to train</td><td>Substantial, and must run in real time</td></tr>
-        </tbody>
-      </table>
-      <div class="factors">
-        <p><strong>The deciding question</strong> – does the problem have features a human can reasonably define by hand? If it does, a simple, interpretable ML model is likely sufficient. If it does not, deep learning is the only realistic route, and its cost in data and computing power is the price of solving the problem at all.</p>
+      <h3>Where the Two Cases Diverge</h3>
+      <p>Set side by side, the two problems pull in opposite directions on every dimension that matters.</p>
+      <div class="diverge-heads">
+        <span>Transfer value · ML</span>
+        <span></span>
+        <span>Autonomous driving · DL</span>
       </div>
+      <ul class="diverge">
+        <li>
+          <span class="ml">Goals, assists, age – visible and countable</span>
+          <span class="dim">The features</span>
+          <span class="dl-side">Buried in raw pixels and LIDAR readings</span>
+        </li>
+        <li>
+          <span class="ml">A human selects the right columns</span>
+          <span class="dim">Who defines them</span>
+          <span class="dl-side">The network learns its own, edges to objects</span>
+        </li>
+        <li>
+          <span class="ml">A coefficient you can argue in a negotiation</span>
+          <span class="dim">What you can explain</span>
+          <span class="dl-side">Little – the learned features are opaque</span>
+        </li>
+        <li>
+          <span class="ml">A few thousand transfer records</span>
+          <span class="dim">The data bill</span>
+          <span class="dl-side">Millions of miles of labelled driving</span>
+        </li>
+        <li>
+          <span class="ml">Quick to train on a laptop</span>
+          <span class="dim">The compute bill</span>
+          <span class="dl-side">Substantial, and it must run in real time</span>
+        </li>
+      </ul>
+      <blockquote class="prop">Does the problem have features a human can reasonably define by hand? If it does, a simple, interpretable model is likely enough. If it does not, deep learning's cost in data and computing power is the price of solving the problem at all.</blockquote>
     </div>
 
     <div class="report-sec">
@@ -698,7 +730,7 @@
     <div class="evidence">
       <h4>Evidence</h4>
       <p>The full written report is available as a Word document.</p>
-      <a class="dl" href="assets/ml-vs-dl-report.docx">Download the full report (Word)</a>
+      <a class="dl" href="assets/Machine%20Learning%20vs%20Deep%20Learning.docx" download>Download the full report (Word)</a>
     </div>
   </main>
 
